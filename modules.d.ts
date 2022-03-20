@@ -1,1 +1,1 @@
-declare module '@types/cors';
+declare module 'cors'
