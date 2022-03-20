@@ -41,7 +41,7 @@ app.use(expressWinston.logger(loggerOptions))
 
 routes.push(new CountryRoutes(app))
 
-const runMessage =  `Server running at http://localhost:${port}`
+const runMessage =  `Server running at ${port}`
 
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runMessage)
