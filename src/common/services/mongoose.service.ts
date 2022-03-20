@@ -3,8 +3,6 @@ import debug from 'debug'
 
 const log: debug.IDebugger = debug('app:mongoose-service')
 
-
-
 class MongooseService {
     private count = 0
     private mongooseOptions = {

@@ -29,9 +29,9 @@ const loggerOptions: expressWinston.LoggerOptions = {
 
 }
 
-if(dotEnvResult.error){
-    throw dotEnvResult.error
-}
+// if(dotEnvResult.error){
+//     throw dotEnvResult.error
+// }
 
 if(!process.env.DEBUG){
     loggerOptions.meta = false
