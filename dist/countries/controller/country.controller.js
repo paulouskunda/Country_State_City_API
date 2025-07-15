@@ -13,45 +13,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const debug_1 = __importDefault(require("debug"));
-const http_status_1 = require("../../common/http.status");
 const country_service_1 = __importDefault(require("../services/country.service"));
+const response_util_1 = require("../../common/utils/response.util");
 const log = (0, debug_1.default)('app:country-controller');
 class CountryController {
-    listCountry(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const country = yield country_service_1.default.listCountry(100, 0);
-            res.status(http_status_1.statusCodes.HttpStatus_OK.value).send(country);
-        });
-    }
-    listAllCountriesNames(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const country = yield country_service_1.default.listAllCountryNames();
-            res.status(http_status_1.statusCodes.HttpStatus_OK.value).send(country);
-        });
-    }
     listAllCountries(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const country = yield country_service_1.default.listAllCountry();
-            res.status(http_status_1.statusCodes.HttpStatus_OK.value).send(country);
+            res.status(200).send((0, response_util_1.createResponse)(200, country));
         });
     }
     getCountryByName(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const country = yield country_service_1.default.getCountryByName(req.params.countryName);
-            res.status(http_status_1.statusCodes.HttpStatus_OK.value).send(country);
+            res.status(200).send((0, response_util_1.createResponse)(200, country));
         });
     }
-    getCountryStateByCountryName(req, res) {
+    getCountryProvinceByCountryName(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const country = yield country_service_1.default.getCountryStateByCountryName(req.params.countryName);
-            res.status(http_status_1.statusCodes.HttpStatus_OK.value).send(country);
+            const country = yield country_service_1.default.getCountryProvinceByCountryName(req.params.countryName);
+            res.status(200).send((0, response_util_1.createResponse)(200, country));
         });
     }
-    insertAllCountries(req, res) {
+    getCountryCitiesByCountryNameAndProvinceName(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.status(http_status_1.statusCodes.HttpStatus_OK.value).send(yield country_service_1.default.insertAllCountries());
+            const country = yield country_service_1.default.getCountryCitiesByCountryNameAndProvinceName(req.params.countryName, req.params.provinceName);
+            res.status(200).send((0, response_util_1.createResponse)(200, country));
+        });
+    }
+    getCountryCitiesByCountryIdAndProvinceId(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const country = yield country_service_1.default.getCountryCitiesByCountryIdAndProvinceId(req.params.countryId, req.params.provinceId);
+            res.status(200).send((0, response_util_1.createResponse)(200, country));
+        });
+    }
+    getCountryProvinceByCountryId(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const country = yield country_service_1.default.getCountryProvinceByCountryId(req.params.countryId);
+            res.status(200).send((0, response_util_1.createResponse)(200, country));
         });
     }
 }
 exports.default = new CountryController();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY291bnRyeS5jb250cm9sbGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2NvdW50cmllcy9jb250cm9sbGVyL2NvdW50cnkuY29udHJvbGxlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUNBLGtEQUF5QjtBQUN6QiwwREFBb0Q7QUFDcEQsa0ZBQXdEO0FBQ3hELE1BQU0sR0FBRyxHQUFvQixJQUFBLGVBQUssRUFBQyx3QkFBd0IsQ0FBQyxDQUFBO0FBRzVELE1BQU0saUJBQWlCO0lBQ2IsV0FBVyxDQUFDLEdBQW9CLEVBQUUsR0FBcUI7O1lBQ3pELE1BQU0sT0FBTyxHQUFHLE1BQU0seUJBQWMsQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFDLENBQUMsQ0FBQyxDQUFBO1lBQ3ZELEdBQUcsQ0FBQyxNQUFNLENBQUMseUJBQVcsQ0FBQyxhQUFhLENBQUMsS0FBSyxDQUFDLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFBO1FBQzdELENBQUM7S0FBQTtJQUVLLHFCQUFxQixDQUFDLEdBQW9CLEVBQUUsR0FBcUI7O1lBQ25FLE1BQU0sT0FBTyxHQUFHLE1BQU0seUJBQWMsQ0FBQyxtQkFBbUIsRUFBRSxDQUFBO1lBQzFELEdBQUcsQ0FBQyxNQUFNLENBQUMseUJBQVcsQ0FBQyxhQUFhLENBQUMsS0FBSyxDQUFDLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFBO1FBRTdELENBQUM7S0FBQTtJQUVLLGdCQUFnQixDQUFDLEdBQW9CLEVBQUUsR0FBcUI7O1lBQzlELE1BQU0sT0FBTyxHQUFHLE1BQU0seUJBQWMsQ0FBQyxjQUFjLEVBQUUsQ0FBQTtZQUNyRCxHQUFHLENBQUMsTUFBTSxDQUFDLHlCQUFXLENBQUMsYUFBYSxDQUFDLEtBQUssQ0FBQyxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQTtRQUM3RCxDQUFDO0tBQUE7SUFFSyxnQkFBZ0IsQ0FBQyxHQUFvQixFQUFFLEdBQXFCOztZQUU5RCxNQUFNLE9BQU8sR0FBRyxNQUFNLHlCQUFjLENBQUMsZ0JBQWdCLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsQ0FBQTtZQUM3RSxHQUFHLENBQUMsTUFBTSxDQUFDLHlCQUFXLENBQUMsYUFBYSxDQUFDLEtBQUssQ0FBQyxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQTtRQUM3RCxDQUFDO0tBQUE7SUFFSyw0QkFBNEIsQ0FBQyxHQUFvQixFQUFFLEdBQXFCOztZQUMxRSxNQUFNLE9BQU8sR0FBRyxNQUFNLHlCQUFjLENBQUMsNEJBQTRCLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsQ0FBQTtZQUN6RixHQUFHLENBQUMsTUFBTSxDQUFDLHlCQUFXLENBQUMsYUFBYSxDQUFDLEtBQUssQ0FBQyxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQTtRQUM3RCxDQUFDO0tBQUE7SUFFSyxrQkFBa0IsQ0FBQyxHQUFvQixFQUFFLEdBQXFCOztZQUNoRSxHQUFHLENBQUMsTUFBTSxDQUFDLHlCQUFXLENBQUMsYUFBYSxDQUFDLEtBQUssQ0FBQyxDQUFDLElBQUksQ0FBQyxNQUFNLHlCQUFjLENBQUMsa0JBQWtCLEVBQUUsQ0FBQyxDQUFBO1FBQy9GLENBQUM7S0FBQTtDQUNKO0FBRUQsa0JBQWUsSUFBSSxpQkFBaUIsRUFBRSxDQUFBIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY291bnRyeS5jb250cm9sbGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2NvdW50cmllcy9jb250cm9sbGVyL2NvdW50cnkuY29udHJvbGxlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUNBLGtEQUF5QjtBQUV6QixrRkFBd0Q7QUFDeEQsb0VBQWtFO0FBQ2xFLE1BQU0sR0FBRyxHQUFvQixJQUFBLGVBQUssRUFBQyx3QkFBd0IsQ0FBQyxDQUFBO0FBRzVELE1BQU0saUJBQWlCO0lBS2IsZ0JBQWdCLENBQUMsR0FBb0IsRUFBRSxHQUFxQjs7WUFDOUQsTUFBTSxPQUFPLEdBQUcsTUFBTSx5QkFBYyxDQUFDLGNBQWMsRUFBRSxDQUFDO1lBQ3RELEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLElBQUEsOEJBQWMsRUFBQyxHQUFHLEVBQUUsT0FBTyxDQUFDLENBQUMsQ0FBQztRQUN2RCxDQUFDO0tBQUE7SUFFSyxnQkFBZ0IsQ0FBQyxHQUFvQixFQUFFLEdBQXFCOztZQUM5RCxNQUFNLE9BQU8sR0FBRyxNQUFNLHlCQUFjLENBQUMsZ0JBQWdCLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsQ0FBQztZQUM5RSxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxJQUFBLDhCQUFjLEVBQUMsR0FBRyxFQUFFLE9BQU8sQ0FBQyxDQUFDLENBQUM7UUFDdkQsQ0FBQztLQUFBO0lBRUssK0JBQStCLENBQUMsR0FBb0IsRUFBRSxHQUFxQjs7WUFDN0UsTUFBTSxPQUFPLEdBQUcsTUFBTSx5QkFBYyxDQUFDLCtCQUErQixDQUFDLEdBQUcsQ0FBQyxNQUFNLENBQUMsV0FBVyxDQUFDLENBQUM7WUFDN0YsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsSUFBQSw4QkFBYyxFQUFDLEdBQUcsRUFBRSxPQUFPLENBQUMsQ0FBQyxDQUFDO1FBQ3ZELENBQUM7S0FBQTtJQUVLLDRDQUE0QyxDQUFDLEdBQW9CLEVBQUUsR0FBcUI7O1lBQzFGLE1BQU0sT0FBTyxHQUFHLE1BQU0seUJBQWMsQ0FBQyw0Q0FBNEMsQ0FDN0UsR0FBRyxDQUFDLE1BQU0sQ0FBQyxXQUFXLEVBQ3RCLEdBQUcsQ0FBQyxNQUFNLENBQUMsWUFBWSxDQUMxQixDQUFDO1lBQ0YsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsSUFBQSw4QkFBYyxFQUFDLEdBQUcsRUFBRSxPQUFPLENBQUMsQ0FBQyxDQUFDO1FBQ3ZELENBQUM7S0FBQTtJQUVLLHdDQUF3QyxDQUFDLEdBQW9CLEVBQUUsR0FBcUI7O1lBQ3RGLE1BQU0sT0FBTyxHQUFHLE1BQU0seUJBQWMsQ0FBQyx3Q0FBd0MsQ0FDekUsR0FBRyxDQUFDLE1BQU0sQ0FBQyxTQUFTLEVBQ3BCLEdBQUcsQ0FBQyxNQUFNLENBQUMsVUFBVSxDQUN4QixDQUFDO1lBQ0YsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsSUFBQSw4QkFBYyxFQUFDLEdBQUcsRUFBRSxPQUFPLENBQUMsQ0FBQyxDQUFDO1FBQ3ZELENBQUM7S0FBQTtJQUVLLDZCQUE2QixDQUFDLEdBQW9CLEVBQUUsR0FBcUI7O1lBQzNFLE1BQU0sT0FBTyxHQUFHLE1BQU0seUJBQWMsQ0FBQyw2QkFBNkIsQ0FBQyxHQUFHLENBQUMsTUFBTSxDQUFDLFNBQVMsQ0FBQyxDQUFDO1lBQ3pGLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLElBQUEsOEJBQWMsRUFBQyxHQUFHLEVBQUUsT0FBTyxDQUFDLENBQUMsQ0FBQztRQUN2RCxDQUFDO0tBQUE7Q0FFSjtBQUVELGtCQUFlLElBQUksaUJBQWlCLEVBQUUsQ0FBQSJ9

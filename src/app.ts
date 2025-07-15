@@ -1,13 +1,17 @@
 import express from 'express'
 import * as http from 'http'
 import dotenv from 'dotenv'
-
+import connectDB from './common/config/database.config'
 import * as winston from 'winston'
 import * as expressWinston from 'express-winston'
 import cors from 'cors'
 import {CommonRoutesConfig} from './common/common.routes.config'
 import {CountryRoutes} from './countries/country.routes.config'
+import countryDao from './countries/daos/country.dao'
 import debug from 'debug'
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './common/config/swagger.config';
+
 const dotEnvResult = dotenv.config()
 
 const app: express.Application = express()
@@ -48,10 +52,18 @@ app.get('/', (req: express.Request, res: express.Response) => {
 })
 
 
-server.listen(port, () => {
-    routes.forEach((routes: CommonRoutesConfig) => {
-        debugLog(`Routes  configured for ${routes.getName}`)
-    })
+
+// Add Swagger middleware
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+connectDB().then(() => {
+    server.listen(port, () => {
+        routes.forEach((routes: CommonRoutesConfig) => {
+            debugLog(`Routes  configured for ${routes.getName}`)
+        })
+})
+
 
     console.log(runMessage)
+    console.log(`Swagger docs available at http://localhost:${port}/api-docs`);
 })

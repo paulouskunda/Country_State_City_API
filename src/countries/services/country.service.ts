@@ -1,35 +1,35 @@
 import CountryDao from '../daos/country.dao'
 import { CRUD } from "../../common/interfaces/country.crud.interface"
-import fs from 'fs'
+
 
 
 class CountryService implements CRUD{
 
-    async listCountry(limit: number, page: number){
-        return CountryDao.getCountriesList(limit, page)
-    }
+ 
     async listAllCountry(){
         return CountryDao.getAllCountriesList()
     }
 
-    async listAllCountryNames(){
-        return CountryDao.getAllCountriesNamesList()
-    }
     
     async getCountryByName(countryName: string){
         return CountryDao.getCountryByName(countryName)
     }
 
-    async getCountryStateByCountryName(countryName: string){
-        return CountryDao.getCountryStateByCountryName(countryName)
+    async getCountryProvinceByCountryName(countryName: string){
+        return CountryDao.getCountryProvinceByCountryName(countryName)
     }
 
-    async insertAllCountries(){
-        var countries:any = fs.readFileSync('country_state_city.json');  
-        var country = JSON.parse(countries);  
-        return CountryDao.insertAllCountries(country)
+    async getCountryCitiesByCountryNameAndProvinceName(countryName: string, provinceName: string){
+        return CountryDao.getCountryCitiesByCountryNameAndProvinceName(countryName, provinceName)
     }
     
+    async getCountryCitiesByCountryIdAndProvinceId(countryId: string, provinceId: string){
+        return CountryDao.getCountryCitiesByCountryIdAndProvinceId(countryId, provinceId)
+    }   
+
+    async getCountryProvinceByCountryId(countryId: string){
+        return CountryDao.getCountryProvinceByCountryId(countryId)
+    }
 
 }
 

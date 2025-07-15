@@ -13,21 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const country_dao_1 = __importDefault(require("../daos/country.dao"));
-const fs_1 = __importDefault(require("fs"));
 class CountryService {
-    listCountry(limit, page) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return country_dao_1.default.getCountriesList(limit, page);
-        });
-    }
     listAllCountry() {
         return __awaiter(this, void 0, void 0, function* () {
             return country_dao_1.default.getAllCountriesList();
-        });
-    }
-    listAllCountryNames() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return country_dao_1.default.getAllCountriesNamesList();
         });
     }
     getCountryByName(countryName) {
@@ -35,18 +24,26 @@ class CountryService {
             return country_dao_1.default.getCountryByName(countryName);
         });
     }
-    getCountryStateByCountryName(countryName) {
+    getCountryProvinceByCountryName(countryName) {
         return __awaiter(this, void 0, void 0, function* () {
-            return country_dao_1.default.getCountryStateByCountryName(countryName);
+            return country_dao_1.default.getCountryProvinceByCountryName(countryName);
         });
     }
-    insertAllCountries() {
+    getCountryCitiesByCountryNameAndProvinceName(countryName, provinceName) {
         return __awaiter(this, void 0, void 0, function* () {
-            var countries = fs_1.default.readFileSync('country_state_city.json');
-            var country = JSON.parse(countries);
-            return country_dao_1.default.insertAllCountries(country);
+            return country_dao_1.default.getCountryCitiesByCountryNameAndProvinceName(countryName, provinceName);
+        });
+    }
+    getCountryCitiesByCountryIdAndProvinceId(countryId, provinceId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return country_dao_1.default.getCountryCitiesByCountryIdAndProvinceId(countryId, provinceId);
+        });
+    }
+    getCountryProvinceByCountryId(countryId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return country_dao_1.default.getCountryProvinceByCountryId(countryId);
         });
     }
 }
 exports.default = new CountryService();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY291bnRyeS5zZXJ2aWNlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2NvdW50cmllcy9zZXJ2aWNlcy9jb3VudHJ5LnNlcnZpY2UudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7QUFBQSxzRUFBNEM7QUFFNUMsNENBQW1CO0FBR25CLE1BQU0sY0FBYztJQUVWLFdBQVcsQ0FBQyxLQUFhLEVBQUUsSUFBWTs7WUFDekMsT0FBTyxxQkFBVSxDQUFDLGdCQUFnQixDQUFDLEtBQUssRUFBRSxJQUFJLENBQUMsQ0FBQTtRQUNuRCxDQUFDO0tBQUE7SUFDSyxjQUFjOztZQUNoQixPQUFPLHFCQUFVLENBQUMsbUJBQW1CLEVBQUUsQ0FBQTtRQUMzQyxDQUFDO0tBQUE7SUFFSyxtQkFBbUI7O1lBQ3JCLE9BQU8scUJBQVUsQ0FBQyx3QkFBd0IsRUFBRSxDQUFBO1FBQ2hELENBQUM7S0FBQTtJQUVLLGdCQUFnQixDQUFDLFdBQW1COztZQUN0QyxPQUFPLHFCQUFVLENBQUMsZ0JBQWdCLENBQUMsV0FBVyxDQUFDLENBQUE7UUFDbkQsQ0FBQztLQUFBO0lBRUssNEJBQTRCLENBQUMsV0FBbUI7O1lBQ2xELE9BQU8scUJBQVUsQ0FBQyw0QkFBNEIsQ0FBQyxXQUFXLENBQUMsQ0FBQTtRQUMvRCxDQUFDO0tBQUE7SUFFSyxrQkFBa0I7O1lBQ3BCLElBQUksU0FBUyxHQUFPLFlBQUUsQ0FBQyxZQUFZLENBQUMseUJBQXlCLENBQUMsQ0FBQztZQUMvRCxJQUFJLE9BQU8sR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLFNBQVMsQ0FBQyxDQUFDO1lBQ3BDLE9BQU8scUJBQVUsQ0FBQyxrQkFBa0IsQ0FBQyxPQUFPLENBQUMsQ0FBQTtRQUNqRCxDQUFDO0tBQUE7Q0FHSjtBQUVELGtCQUFlLElBQUksY0FBYyxFQUFFLENBQUEifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY291bnRyeS5zZXJ2aWNlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2NvdW50cmllcy9zZXJ2aWNlcy9jb3VudHJ5LnNlcnZpY2UudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7QUFBQSxzRUFBNEM7QUFLNUMsTUFBTSxjQUFjO0lBR1YsY0FBYzs7WUFDaEIsT0FBTyxxQkFBVSxDQUFDLG1CQUFtQixFQUFFLENBQUE7UUFDM0MsQ0FBQztLQUFBO0lBR0ssZ0JBQWdCLENBQUMsV0FBbUI7O1lBQ3RDLE9BQU8scUJBQVUsQ0FBQyxnQkFBZ0IsQ0FBQyxXQUFXLENBQUMsQ0FBQTtRQUNuRCxDQUFDO0tBQUE7SUFFSywrQkFBK0IsQ0FBQyxXQUFtQjs7WUFDckQsT0FBTyxxQkFBVSxDQUFDLCtCQUErQixDQUFDLFdBQVcsQ0FBQyxDQUFBO1FBQ2xFLENBQUM7S0FBQTtJQUVLLDRDQUE0QyxDQUFDLFdBQW1CLEVBQUUsWUFBb0I7O1lBQ3hGLE9BQU8scUJBQVUsQ0FBQyw0Q0FBNEMsQ0FBQyxXQUFXLEVBQUUsWUFBWSxDQUFDLENBQUE7UUFDN0YsQ0FBQztLQUFBO0lBRUssd0NBQXdDLENBQUMsU0FBaUIsRUFBRSxVQUFrQjs7WUFDaEYsT0FBTyxxQkFBVSxDQUFDLHdDQUF3QyxDQUFDLFNBQVMsRUFBRSxVQUFVLENBQUMsQ0FBQTtRQUNyRixDQUFDO0tBQUE7SUFFSyw2QkFBNkIsQ0FBQyxTQUFpQjs7WUFDakQsT0FBTyxxQkFBVSxDQUFDLDZCQUE2QixDQUFDLFNBQVMsQ0FBQyxDQUFBO1FBQzlELENBQUM7S0FBQTtDQUVKO0FBRUQsa0JBQWUsSUFBSSxjQUFjLEVBQUUsQ0FBQSJ9
