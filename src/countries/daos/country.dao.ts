@@ -1,66 +1,75 @@
-
 import connectDB from '../../common/config/database.config'; // Import connectDB
 
 class CountryDao {
+    private collection: any;
 
-
-    async getCountryByName(countryName: string) {
-        const collection = await connectDB();
-        const query = { name: countryName };
-        //const countryfound 
-        return await collection.find(query).toArray();
+    constructor() {
+        this.initializeCollection();
     }
 
+    private async initializeCollection() {
+        try {
+            this.collection = await connectDB(); 
+            console.log('CountryDao: MongoDB collection initialized');
+        } catch (error) {
+            console.error('CountryDao: Failed to initialize MongoDB collection', error);
+        }
+    }
+
+    async getCountryByName(countryName: string) {
+        const query = { name: countryName };
+        return await this.collection.find(query).toArray();
+    }
 
     async getAllCountriesList() {
-        const collection = await connectDB();
-
-
-        //const countryfound 
-        var country = await collection.find(
-            {},
-            {
-                projection: {
-                    _id: 0,
-                    id: 1,
-                    name: 1,
-                    currency: 1,
-                    phone_code: 1,
-                    iso3: 1,
-                    capital: 1
+        return await this.collection
+            .find(
+                {},
+                {
+                    projection: {
+                        _id: 0,
+                        id: 1,
+                        name: 1,
+                        currency: 1,
+                        phone_code: 1,
+                        iso3: 1,
+                        iso2: 1,
+                        capital: 1,
+                    },
                 }
-            }
-        ).sort({ name: 1 }).toArray();
-        return country;
+            )
+            .sort({ name: 1 })
+            .toArray();
     }
 
     async getCountryProvinceByCountryName(countryName: string) {
-        const collection = await connectDB();
-        return await collection.findOne({ name: countryName }, { projection: { provinces: 1, _id: 0 } });
+        return await this.collection.findOne(
+            { name: countryName },
+            { projection: { provinces: 1, _id: 0 } }
+        );
     }
 
     async getCountryProvinceByCountryId(countryId: string) {
-        const collection = await connectDB();
-        return await collection.findOne({ id: countryId }, { projection: { provinces: 1, _id: 0 } });
+        return await this.collection.findOne(
+            { id: parseInt(countryId) },
+            { projection: { provinces: 1, _id: 0 } }
+        );
     }
 
     async getCountryCitiesByCountryNameAndProvinceName(countryName: string, provinceName: string) {
-        const collection = await connectDB();
-        return await collection.findOne(
+        return await this.collection.findOne(
             { name: countryName, 'provinces.name': provinceName },
-            { projection: { 'provinces.$': 1, _id: 0 } })
-        }
+            { projection: { 'provinces.$': 1, _id: 0 } }
+        );
+    }
 
     async getCountryCitiesByCountryIdAndProvinceId(countryId: string, provinceId: string) {
-        const collection = await connectDB();
-        return await collection.findOne(
-            { 'id': countryId, 'provinces.id': provinceId },
-            { projection: { 'provinces.$': 1, _id: 0 } })
-        .toArray();
+        return await this.collection
+            .findOne(
+                { id: parseInt(countryId), 'provinces.id': parseInt(provinceId) },
+                { projection: { 'provinces.$': 1, _id: 0 } }
+            );
     }
-   
-
-
 }
 
-export default new CountryDao()
+export default new CountryDao();

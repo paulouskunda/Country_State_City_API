@@ -48,7 +48,43 @@ routes.push(new CountryRoutes(app))
 const runMessage =  `Server running at ${port}`
 
 app.get('/', (req: express.Request, res: express.Response) => {
-    res.status(200).send(runMessage)
+    res.status(200).send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Country State City API</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                    background-color: #f4f4f9;
+                }
+                h1 {
+                    color: #333;
+                }
+                p {
+                    color: #555;
+                }
+                a {
+                    color: #007BFF;
+                    text-decoration: none;
+                }
+                a:hover {
+                    text-decoration: underline;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Welcome to the Country State City API</h1>
+            <p>This API provides information about countries, states, and cities.</p>
+            <p>Explore the <a href="/api-docs">API Documentation</a> to learn more about the available endpoints.</p>
+            <p>Server is running on port: ${port}</p>
+        </body>
+        </html>
+    `);
 })
 
 

@@ -10,7 +10,7 @@ const swaggerOptions = {
         info: {
             title: 'Country State City API',
             version: '1.0.0',
-            description: 'API documentation for Country Provinces City project, most of the information was gathered 4 years (pre public ChatGPT) so you need to confirm for other countries and what ever is new in Zambia. The latitude and longitude of some provinces and cities are not accurate, so you need to confirm them.',
+            description: 'API documentation for Country Provinces City project, information was gathered 5+ years (pre-public ChatGPT) so you need to confirm the information if its up-to-date. The latitude and longitude of some provinces and cities are not accurate, so you need to confirm them. Happy coding!',
         },
         servers: [
             {
@@ -23,4 +23,4 @@ const swaggerOptions = {
 };
 const swaggerSpec = (0, swagger_jsdoc_1.default)(swaggerOptions);
 exports.default = swaggerSpec;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3dhZ2dlci5jb25maWcuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvY29tbW9uL2NvbmZpZy9zd2FnZ2VyLmNvbmZpZy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLGtFQUF5QztBQUV6QyxNQUFNLGNBQWMsR0FBRztJQUNuQixVQUFVLEVBQUU7UUFDUixPQUFPLEVBQUUsT0FBTztRQUNoQixJQUFJLEVBQUU7WUFDRixLQUFLLEVBQUUsd0JBQXdCO1lBQy9CLE9BQU8sRUFBRSxPQUFPO1lBQ2hCLFdBQVcsRUFBRSwyU0FBMlM7U0FDM1Q7UUFDRCxPQUFPLEVBQUU7WUFDTDtnQkFDSSxHQUFHLEVBQUUsdUJBQXVCO2dCQUM1QixXQUFXLEVBQUUsb0JBQW9CO2FBQ3BDO1NBQ0o7S0FDSjtJQUNELElBQUksRUFBRSxDQUFDLDZCQUE2QixDQUFDLEVBQUUsa0RBQWtEO0NBQzVGLENBQUM7QUFFRixNQUFNLFdBQVcsR0FBRyxJQUFBLHVCQUFZLEVBQUMsY0FBYyxDQUFDLENBQUM7QUFFakQsa0JBQWUsV0FBVyxDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3dhZ2dlci5jb25maWcuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvY29tbW9uL2NvbmZpZy9zd2FnZ2VyLmNvbmZpZy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLGtFQUF5QztBQUV6QyxNQUFNLGNBQWMsR0FBRztJQUNuQixVQUFVLEVBQUU7UUFDUixPQUFPLEVBQUUsT0FBTztRQUNoQixJQUFJLEVBQUU7WUFDRixLQUFLLEVBQUUsd0JBQXdCO1lBQy9CLE9BQU8sRUFBRSxPQUFPO1lBQ2hCLFdBQVcsRUFBRSw2UkFBNlI7U0FDN1M7UUFDRCxPQUFPLEVBQUU7WUFDTDtnQkFDSSxHQUFHLEVBQUUsdUJBQXVCO2dCQUM1QixXQUFXLEVBQUUsb0JBQW9CO2FBQ3BDO1NBQ0o7S0FDSjtJQUNELElBQUksRUFBRSxDQUFDLDZCQUE2QixDQUFDLEVBQUUsa0RBQWtEO0NBQzVGLENBQUM7QUFFRixNQUFNLFdBQVcsR0FBRyxJQUFBLHVCQUFZLEVBQUMsY0FBYyxDQUFDLENBQUM7QUFFakQsa0JBQWUsV0FBVyxDQUFDIn0=

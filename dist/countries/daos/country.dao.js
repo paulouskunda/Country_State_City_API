@@ -14,19 +14,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_config_1 = __importDefault(require("../../common/config/database.config")); // Import connectDB
 class CountryDao {
+    constructor() {
+        this.initializeCollection();
+    }
+    initializeCollection() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.collection = yield (0, database_config_1.default)();
+                console.log('CountryDao: MongoDB collection initialized');
+            }
+            catch (error) {
+                console.error('CountryDao: Failed to initialize MongoDB collection', error);
+            }
+        });
+    }
     getCountryByName(countryName) {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = yield (0, database_config_1.default)();
             const query = { name: countryName };
-            //const countryfound 
-            return yield collection.find(query).toArray();
+            return yield this.collection.find(query).toArray();
         });
     }
     getAllCountriesList() {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = yield (0, database_config_1.default)();
-            //const countryfound 
-            var country = yield collection.find({}, {
+            return yield this.collection
+                .find({}, {
                 projection: {
                     _id: 0,
                     id: 1,
@@ -34,37 +45,35 @@ class CountryDao {
                     currency: 1,
                     phone_code: 1,
                     iso3: 1,
-                    capital: 1
-                }
-            }).sort({ name: 1 }).toArray();
-            return country;
+                    iso2: 1,
+                    capital: 1,
+                },
+            })
+                .sort({ name: 1 })
+                .toArray();
         });
     }
     getCountryProvinceByCountryName(countryName) {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = yield (0, database_config_1.default)();
-            return yield collection.findOne({ name: countryName }, { projection: { provinces: 1, _id: 0 } });
+            return yield this.collection.findOne({ name: countryName }, { projection: { provinces: 1, _id: 0 } });
         });
     }
     getCountryProvinceByCountryId(countryId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = yield (0, database_config_1.default)();
-            return yield collection.findOne({ id: countryId }, { projection: { provinces: 1, _id: 0 } });
+            return yield this.collection.findOne({ id: parseInt(countryId) }, { projection: { provinces: 1, _id: 0 } });
         });
     }
     getCountryCitiesByCountryNameAndProvinceName(countryName, provinceName) {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = yield (0, database_config_1.default)();
-            return yield collection.findOne({ name: countryName, 'provinces.name': provinceName }, { projection: { 'provinces.$': 1, _id: 0 } });
+            return yield this.collection.findOne({ name: countryName, 'provinces.name': provinceName }, { projection: { 'provinces.$': 1, _id: 0 } });
         });
     }
     getCountryCitiesByCountryIdAndProvinceId(countryId, provinceId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const collection = yield (0, database_config_1.default)();
-            return yield collection.findOne({ 'id': countryId, 'provinces.id': provinceId }, { projection: { 'provinces.$': 1, _id: 0 } })
-                .toArray();
+            return yield this.collection
+                .findOne({ id: parseInt(countryId), 'provinces.id': parseInt(provinceId) }, { projection: { 'provinces.$': 1, _id: 0 } });
         });
     }
 }
 exports.default = new CountryDao();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY291bnRyeS5kYW8uanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvY291bnRyaWVzL2Rhb3MvY291bnRyeS5kYW8udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7QUFDQSwwRkFBNEQsQ0FBQyxtQkFBbUI7QUFFaEYsTUFBTSxVQUFVO0lBR04sZ0JBQWdCLENBQUMsV0FBbUI7O1lBQ3RDLE1BQU0sVUFBVSxHQUFHLE1BQU0sSUFBQSx5QkFBUyxHQUFFLENBQUM7WUFDckMsTUFBTSxLQUFLLEdBQUcsRUFBRSxJQUFJLEVBQUUsV0FBVyxFQUFFLENBQUM7WUFDcEMscUJBQXFCO1lBQ3JCLE9BQU8sTUFBTSxVQUFVLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDLE9BQU8sRUFBRSxDQUFDO1FBQ2xELENBQUM7S0FBQTtJQUdLLG1CQUFtQjs7WUFDckIsTUFBTSxVQUFVLEdBQUcsTUFBTSxJQUFBLHlCQUFTLEdBQUUsQ0FBQztZQUdyQyxxQkFBcUI7WUFDckIsSUFBSSxPQUFPLEdBQUcsTUFBTSxVQUFVLENBQUMsSUFBSSxDQUMvQixFQUFFLEVBQ0Y7Z0JBQ0ksVUFBVSxFQUFFO29CQUNSLEdBQUcsRUFBRSxDQUFDO29CQUNOLEVBQUUsRUFBRSxDQUFDO29CQUNMLElBQUksRUFBRSxDQUFDO29CQUNQLFFBQVEsRUFBRSxDQUFDO29CQUNYLFVBQVUsRUFBRSxDQUFDO29CQUNiLElBQUksRUFBRSxDQUFDO29CQUNQLE9BQU8sRUFBRSxDQUFDO2lCQUNiO2FBQ0osQ0FDSixDQUFDLElBQUksQ0FBQyxFQUFFLElBQUksRUFBRSxDQUFDLEVBQUUsQ0FBQyxDQUFDLE9BQU8sRUFBRSxDQUFDO1lBQzlCLE9BQU8sT0FBTyxDQUFDO1FBQ25CLENBQUM7S0FBQTtJQUVLLCtCQUErQixDQUFDLFdBQW1COztZQUNyRCxNQUFNLFVBQVUsR0FBRyxNQUFNLElBQUEseUJBQVMsR0FBRSxDQUFDO1lBQ3JDLE9BQU8sTUFBTSxVQUFVLENBQUMsT0FBTyxDQUFDLEVBQUUsSUFBSSxFQUFFLFdBQVcsRUFBRSxFQUFFLEVBQUUsVUFBVSxFQUFFLEVBQUUsU0FBUyxFQUFFLENBQUMsRUFBRSxHQUFHLEVBQUUsQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDO1FBQ3JHLENBQUM7S0FBQTtJQUVLLDZCQUE2QixDQUFDLFNBQWlCOztZQUNqRCxNQUFNLFVBQVUsR0FBRyxNQUFNLElBQUEseUJBQVMsR0FBRSxDQUFDO1lBQ3JDLE9BQU8sTUFBTSxVQUFVLENBQUMsT0FBTyxDQUFDLEVBQUUsRUFBRSxFQUFFLFNBQVMsRUFBRSxFQUFFLEVBQUUsVUFBVSxFQUFFLEVBQUUsU0FBUyxFQUFFLENBQUMsRUFBRSxHQUFHLEVBQUUsQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDO1FBQ2pHLENBQUM7S0FBQTtJQUVLLDRDQUE0QyxDQUFDLFdBQW1CLEVBQUUsWUFBb0I7O1lBQ3hGLE1BQU0sVUFBVSxHQUFHLE1BQU0sSUFBQSx5QkFBUyxHQUFFLENBQUM7WUFDckMsT0FBTyxNQUFNLFVBQVUsQ0FBQyxPQUFPLENBQzNCLEVBQUUsSUFBSSxFQUFFLFdBQVcsRUFBRSxnQkFBZ0IsRUFBRSxZQUFZLEVBQUUsRUFDckQsRUFBRSxVQUFVLEVBQUUsRUFBRSxhQUFhLEVBQUUsQ0FBQyxFQUFFLEdBQUcsRUFBRSxDQUFDLEVBQUUsRUFBRSxDQUFDLENBQUE7UUFDakQsQ0FBQztLQUFBO0lBRUMsd0NBQXdDLENBQUMsU0FBaUIsRUFBRSxVQUFrQjs7WUFDaEYsTUFBTSxVQUFVLEdBQUcsTUFBTSxJQUFBLHlCQUFTLEdBQUUsQ0FBQztZQUNyQyxPQUFPLE1BQU0sVUFBVSxDQUFDLE9BQU8sQ0FDM0IsRUFBRSxJQUFJLEVBQUUsU0FBUyxFQUFFLGNBQWMsRUFBRSxVQUFVLEVBQUUsRUFDL0MsRUFBRSxVQUFVLEVBQUUsRUFBRSxhQUFhLEVBQUUsQ0FBQyxFQUFFLEdBQUcsRUFBRSxDQUFDLEVBQUUsRUFBRSxDQUFDO2lCQUNoRCxPQUFPLEVBQUUsQ0FBQztRQUNmLENBQUM7S0FBQTtDQUlKO0FBRUQsa0JBQWUsSUFBSSxVQUFVLEVBQUUsQ0FBQSJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY291bnRyeS5kYW8uanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvY291bnRyaWVzL2Rhb3MvY291bnRyeS5kYW8udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7QUFBQSwwRkFBNEQsQ0FBQyxtQkFBbUI7QUFFaEYsTUFBTSxVQUFVO0lBR1o7UUFDSSxJQUFJLENBQUMsb0JBQW9CLEVBQUUsQ0FBQztJQUNoQyxDQUFDO0lBRWEsb0JBQW9COztZQUM5QixJQUFJO2dCQUNBLElBQUksQ0FBQyxVQUFVLEdBQUcsTUFBTSxJQUFBLHlCQUFTLEdBQUUsQ0FBQztnQkFDcEMsT0FBTyxDQUFDLEdBQUcsQ0FBQyw0Q0FBNEMsQ0FBQyxDQUFDO2FBQzdEO1lBQUMsT0FBTyxLQUFLLEVBQUU7Z0JBQ1osT0FBTyxDQUFDLEtBQUssQ0FBQyxxREFBcUQsRUFBRSxLQUFLLENBQUMsQ0FBQzthQUMvRTtRQUNMLENBQUM7S0FBQTtJQUVLLGdCQUFnQixDQUFDLFdBQW1COztZQUN0QyxNQUFNLEtBQUssR0FBRyxFQUFFLElBQUksRUFBRSxXQUFXLEVBQUUsQ0FBQztZQUNwQyxPQUFPLE1BQU0sSUFBSSxDQUFDLFVBQVUsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDLENBQUMsT0FBTyxFQUFFLENBQUM7UUFDdkQsQ0FBQztLQUFBO0lBRUssbUJBQW1COztZQUNyQixPQUFPLE1BQU0sSUFBSSxDQUFDLFVBQVU7aUJBQ3ZCLElBQUksQ0FDRCxFQUFFLEVBQ0Y7Z0JBQ0ksVUFBVSxFQUFFO29CQUNSLEdBQUcsRUFBRSxDQUFDO29CQUNOLEVBQUUsRUFBRSxDQUFDO29CQUNMLElBQUksRUFBRSxDQUFDO29CQUNQLFFBQVEsRUFBRSxDQUFDO29CQUNYLFVBQVUsRUFBRSxDQUFDO29CQUNiLElBQUksRUFBRSxDQUFDO29CQUNQLElBQUksRUFBRSxDQUFDO29CQUNQLE9BQU8sRUFBRSxDQUFDO2lCQUNiO2FBQ0osQ0FDSjtpQkFDQSxJQUFJLENBQUMsRUFBRSxJQUFJLEVBQUUsQ0FBQyxFQUFFLENBQUM7aUJBQ2pCLE9BQU8sRUFBRSxDQUFDO1FBQ25CLENBQUM7S0FBQTtJQUVLLCtCQUErQixDQUFDLFdBQW1COztZQUNyRCxPQUFPLE1BQU0sSUFBSSxDQUFDLFVBQVUsQ0FBQyxPQUFPLENBQ2hDLEVBQUUsSUFBSSxFQUFFLFdBQVcsRUFBRSxFQUNyQixFQUFFLFVBQVUsRUFBRSxFQUFFLFNBQVMsRUFBRSxDQUFDLEVBQUUsR0FBRyxFQUFFLENBQUMsRUFBRSxFQUFFLENBQzNDLENBQUM7UUFDTixDQUFDO0tBQUE7SUFFSyw2QkFBNkIsQ0FBQyxTQUFpQjs7WUFDakQsT0FBTyxNQUFNLElBQUksQ0FBQyxVQUFVLENBQUMsT0FBTyxDQUNoQyxFQUFFLEVBQUUsRUFBRSxRQUFRLENBQUMsU0FBUyxDQUFDLEVBQUUsRUFDM0IsRUFBRSxVQUFVLEVBQUUsRUFBRSxTQUFTLEVBQUUsQ0FBQyxFQUFFLEdBQUcsRUFBRSxDQUFDLEVBQUUsRUFBRSxDQUMzQyxDQUFDO1FBQ04sQ0FBQztLQUFBO0lBRUssNENBQTRDLENBQUMsV0FBbUIsRUFBRSxZQUFvQjs7WUFDeEYsT0FBTyxNQUFNLElBQUksQ0FBQyxVQUFVLENBQUMsT0FBTyxDQUNoQyxFQUFFLElBQUksRUFBRSxXQUFXLEVBQUUsZ0JBQWdCLEVBQUUsWUFBWSxFQUFFLEVBQ3JELEVBQUUsVUFBVSxFQUFFLEVBQUUsYUFBYSxFQUFFLENBQUMsRUFBRSxHQUFHLEVBQUUsQ0FBQyxFQUFFLEVBQUUsQ0FDL0MsQ0FBQztRQUNOLENBQUM7S0FBQTtJQUVLLHdDQUF3QyxDQUFDLFNBQWlCLEVBQUUsVUFBa0I7O1lBQ2hGLE9BQU8sTUFBTSxJQUFJLENBQUMsVUFBVTtpQkFDdkIsT0FBTyxDQUNKLEVBQUUsRUFBRSxFQUFFLFFBQVEsQ0FBQyxTQUFTLENBQUMsRUFBRSxjQUFjLEVBQUUsUUFBUSxDQUFDLFVBQVUsQ0FBQyxFQUFFLEVBQ2pFLEVBQUUsVUFBVSxFQUFFLEVBQUUsYUFBYSxFQUFFLENBQUMsRUFBRSxHQUFHLEVBQUUsQ0FBQyxFQUFFLEVBQUUsQ0FDL0MsQ0FBQztRQUNWLENBQUM7S0FBQTtDQUNKO0FBRUQsa0JBQWUsSUFBSSxVQUFVLEVBQUUsQ0FBQyJ9
